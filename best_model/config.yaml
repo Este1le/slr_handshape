@@ -1,0 +1,107 @@
+task: S2G
+data:
+  input_data: videos
+  input_streams:
+    - rgb
+    - handshape
+  zip_file: /exp/xzhang/slt/slr_handshape/data/PHOENIX2014T_videos.zip
+  train: /exp/xzhang/slt/slr_handshape/data/PHOENIX14T-HS.train.pkl
+  dev: /exp/xzhang/slt/slr_handshape/data/PHOENIX14T-HS.dev.pkl
+  test: /exp/xzhang/slt/slr_handshape/data/PHOENIX14T-HS.test.pkl
+  dataset_name: phoenix-2014t
+  level: word #word or char
+  txt_lowercase: true
+  max_sent_length: 400
+  transform_cfg:
+    img_size: 224
+    color_jitter: true
+    bottom_area: 0.7 
+    center_crop_size: 224 
+    center_crop: False
+    randomcrop_threshold: 1
+    aspect_ratio_min: 0.75
+    aspect_ratio_max: 1.3
+    temporal_augmentation:
+      tmin: 0.5
+      tmax: 1.5
+testing:
+  cfg:
+    recognition:
+      beam_size: 5
+training:
+  #overwrite: False
+  model_dir: /exp/xzhang/slt/slr_handshape/experiments/hs_2stream_ce_es005
+  #from_ckpt: /exp/xzhang/slt/slr_handshape/best_model/ckpts/best.ckpt
+  random_seed: 321
+  shuffle: True
+  num_workers: 4
+  batch_size: 1
+  total_epoch: 45
+  keep_last_ckpts: 1
+  validation: 
+    unit: epoch
+    freq: 1
+    cfg:
+      recognition:
+        beam_size: 1
+  optimization:
+    optimizer: Adam
+    learning_rate:
+      default: 1.0e-3
+    weight_decay: 0.001
+    betas:
+    - 0.9
+    - 0.998
+    scheduler: cosineannealing
+    t_max: 40
+model:
+  RecognitionNetwork:
+    pretrained_root: /exp/xzhang/slt/slr_handshape/pretrained
+    pretrained_path_rgb: phoenix-2014t_video_best.ckpt
+    pretrained_path_handshape: hs_2hands/best.ckpt
+    GlossTokenizer:
+      gloss2id_file: /exp/xzhang/slt/slr_handshape/data/gloss2ids.pkl
+    HandshapeTokenizer:
+      handshape2id_file_right: /exp/xzhang/slt/slr_handshape/data/handshape2ids_rm_right.pkl
+      handshape2id_file_left: /exp/xzhang/slt/slr_handshape/data/handshape2ids_rm_left.pkl
+    s3d:
+      pretrained_ckpt: s3ds_glosscls_ckpt #from WLASL
+      use_block: 4
+      freeze_block: 1
+    keypoint_s3d:
+      in_channel: 0 # placeholder
+      pretrained_ckpt: s3ds_actioncls_ckpt #from K400
+      use_block: 4
+      freeze_block: 0
+    handshape_s3d:
+      pretrained_ckpt: s3ds_glosscls_ckpt #from WLASL
+      use_block: 4
+      freeze_block: 2
+    heatmap_cfg:
+      raw_size:
+        - 260
+        - 210 
+      input_size: 112
+      sigma: 8
+    fuse_method: triplehead_cat
+    visual_head:
+      input_size: 832
+      hidden_size: 512
+      ff_size: 2048
+      pe: True 
+      ff_kernelsize:
+        - 3
+        - 3
+    handshape_heads: False #-1: attach handshape heads to each stream
+    handshape:
+    - right
+    - left
+    cross_entropy:
+      strategy: joint
+      expand: True
+      types:
+        # handshape_teaches_handshape: 1
+        ensemble_last_teaches_handshape: 0.05
+        # ensemble_last_teaches_rgb: 1
+        # ensemble_last_teaches_keypoint: 1
+        # ensemble_last_teaches_fuse: 1

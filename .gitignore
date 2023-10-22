@@ -1,3 +1,7 @@
+best_model.zip
+pretrained.zip
+best_model/ckpts
+pretrained/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
