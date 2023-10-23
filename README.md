@@ -69,7 +69,7 @@ conda activate slr_handshape
 
 ### 2. Data
 
-**Download** the [PHOENIX14T-HS](https://www.cs.jhu.edu/~xzhan138/PHOENIX14T-HS.html) dataset. It entends the [PHOENIX14T](https://www-i6.informatik.rwth-aachen.de/~koller/RWTH-PHOENIX-2014-T/) dataset with handshape annotations. Place the files in the `data` folder.
+**Download** the [PHOENIX14T-HS](https://dented-humor-f26.notion.site/PHOEXNIX14T-HS-32303c1652d94266b2c1f4fcc4916707) dataset. It entends the [PHOENIX14T](https://www-i6.informatik.rwth-aachen.de/~koller/RWTH-PHOENIX-2014-T/) dataset with handshape annotations. Place the files in the `data` folder.
 
 
 ### 3. Pretrained Models
