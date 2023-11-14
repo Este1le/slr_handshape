@@ -114,7 +114,7 @@ xuanzhang@jhu.edu
 @inproceedings{zhang2023handshape,
   title={Handshape-Aware Sign Language Recognition: Extended Datasets and Exploration of Handshape-Inclusive Method},
   author={Zhang, Xuan and Duh, Kevin},
-  booktitle={Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing},
+  booktitle={Findings of the Association for Computational Linguistics: EMNLP 2023},
   year={2023}
 }
 ```
