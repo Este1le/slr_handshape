@@ -73,7 +73,7 @@ conda activate slr_handshape
 
 
 ### 3. Pretrained Models
-**Download** [pretrained.zip](https://drive.google.com/file/d/1AR6vZUYH0aJpnOmxYYpviaXdDeuS_Wr_/view?usp=share_link). Extract the files and place in the `pretrained` folder.
+**Download** [pretrained.zip](https://drive.google.com/file/d/1OphDecmq2XCETIInUjVlLuQyLcgtrFpz/view?usp=sharing). Extract the files and place in the `pretrained` folder.
 
 | Name | Description |
 |------|-------------|
