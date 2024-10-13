@@ -99,7 +99,7 @@ sh scripts/train.sh
 sh scripts/predict.sh
 ```
 ### 6. Best Model Checkpoint
-We provide the model checkpoint of our best model. Please feel free to download [here](https://drive.google.com/file/d/1l2NB8qGQMBtY1unGDoy39zyfyCl0_mMQ/view?usp=share_link).  
+We provide the model checkpoint of our best model. Please feel free to download [here](https://drive.google.com/file/d/1vz0QhEb_QG1gNcWBoG6TxYbaquinM776/view?usp=sharing).  
 
 This system utilizes the dual-encoder architecture of **Model II**. After initial pretraining on Kinetics-400 and WLASL datasets, we freeze the parameters of the first three blocks of the S3D. For the hyperparameters, we set $\lambda^L$ and $\lambda^R$ to 1, while $\lambda_{CE}^L$ and $\lambda_{CE}^R$ are set to 0.05. The initial learning rate is 0.001. Adam is used as the optimizer. 
 
